@@ -1,5 +1,11 @@
 import { connectProjectLibrary } from './project-library.js';
 
+if (location.hostname === 'folio-app.de' && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistration('/').then(registration => {
+    if (registration?.active?.scriptURL === location.origin + '/sw.js') return registration.update();
+  }).catch(() => {});
+}
+
 const endpoint = 'https://irroinhpcoafwxwlnnbd.supabase.co/functions/v1/folio-office';
 const tokenStorage = 'folio-office-session-v1';
 const form = document.getElementById('access');
