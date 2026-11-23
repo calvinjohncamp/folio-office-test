@@ -23,12 +23,21 @@
 <p class="notice" id="notice" role="status" hidden></p>
 <form id="access">
 <label id="email-label">E-Mail<input type="email" name="email" autocomplete="username" required maxlength="254"></label>
-<label id="code-label" hidden><span>Einrichtungscode</span><input type="password" name="code" autocomplete="off" maxlength="128" disabled></label>
+<div id="code-label" class="code-field" hidden>
+<label for="access-code" id="code-title">Einrichtungscode</label>
+<div class="code-input">
+<input id="access-code" type="password" name="code" inputmode="numeric" autocomplete="off" maxlength="128" disabled aria-describedby="code-hint">
+<button id="toggle-code" type="button" aria-label="Code anzeigen" aria-pressed="false" aria-controls="access-code" title="Code anzeigen">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+</button>
+</div>
+<p id="code-hint" class="code-hint"></p>
+</div>
 <label>Kennwort<input type="password" name="password" autocomplete="current-password" required maxlength="128"></label>
 <button type="submit">Login</button>
 </form>
 <div id="recovery" hidden>
-<p>Bewahre diesen einmaligen Wiederherstellungscode in deinem Passwortmanager auf. Er wird nur jetzt angezeigt.</p>
+<p>Speichere den achtstelligen Wiederherstellungscode in deinem Passwortmanager. Er wird nur jetzt angezeigt.</p>
 <label>Wiederherstellungscode<input id="recovery-code" readonly autocomplete="off"></label>
 <p><button id="continue" type="button">Weiter zu Folio Office</button></p>
 </div>

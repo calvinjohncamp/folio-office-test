@@ -4,6 +4,9 @@ const form = document.getElementById('access');
 const notice = document.getElementById('notice');
 const emailLabel = document.getElementById('email-label');
 const codeLabel = document.getElementById('code-label');
+const codeTitle = document.getElementById('code-title');
+const codeHint = document.getElementById('code-hint');
+const toggleCode = document.getElementById('toggle-code');
 const switchLink = document.getElementById('switch');
 const submit = form.querySelector('button');
 const modeForHash = () => ({ '#einrichten': 'setup', '#wiederherstellen': 'recover' })[location.hash] || 'login';
@@ -14,6 +17,14 @@ function showNotice(message) {
   notice.textContent = message;
   notice.hidden = !message;
 }
+function setCodeVisible(visible) {
+  form.elements.code.type = visible ? 'text' : 'password';
+  toggleCode.setAttribute('aria-pressed', String(visible));
+  const label = visible ? 'Code ausblenden' : 'Code anzeigen';
+  toggleCode.setAttribute('aria-label', label);
+  toggleCode.title = label;
+}
+toggleCode.addEventListener('click', () => setCodeVisible(form.elements.code.type === 'password'));
 function showForm() {
   const mode = modeForHash();
   emailLabel.hidden = mode === 'recover';
@@ -21,9 +32,12 @@ function showForm() {
   codeLabel.hidden = mode === 'login';
   form.elements.code.disabled = codeLabel.hidden;
   form.elements.code.required = !codeLabel.hidden;
-  codeLabel.querySelector('span').textContent = mode === 'setup' ? 'Einrichtungscode' : 'Wiederherstellungscode';
+  codeTitle.textContent = mode === 'setup' ? 'Einrichtungscode' : 'Wiederherstellungscode';
+  codeHint.textContent = mode === 'setup' ? 'Die acht Ziffern aus Einrichtungscode.txt.' : 'Der Code aus deinem Passwortmanager.';
+  form.elements.code.value = '';
+  setCodeVisible(false);
   form.elements.password.autocomplete = mode === 'login' ? 'current-password' : 'new-password';
-  form.elements.password.minLength = mode === 'login' ? 1 : 12;
+  form.elements.password.minLength = mode === 'login' ? 1 : 8;
   submit.textContent = mode === 'login' ? 'Login' : 'Kennwort speichern';
   switchLink.href = mode === 'login' ? '#wiederherstellen' : '#login';
   switchLink.textContent = mode === 'login' ? 'Kennwort vergessen?' : 'Zum Login';
