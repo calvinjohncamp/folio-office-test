@@ -1,3 +1,5 @@
+import { connectProjectLibrary } from './project-library.js';
+
 const endpoint = 'https://irroinhpcoafwxwlnnbd.supabase.co/functions/v1/folio-office';
 const tokenStorage = 'folio-office-session-v1';
 const form = document.getElementById('access');
@@ -74,7 +76,10 @@ function forgetSession() {
   try { sessionStorage.removeItem(tokenStorage); } catch {}
 }
 async function openOffice(session) {
-  const bundle = await request('office', null, session);
+  const [bundle, library] = await Promise.all([
+    request('office', null, session), request('project-library', null, session),
+  ]);
+  window.FOLIO_PROJECT_LIBRARY = connectProjectLibrary(library, request, session);
   const page = new DOMParser().parseFromString(bundle.html, 'text/html');
   const urls = [];
   for (const element of page.querySelectorAll('script[src], link[rel="stylesheet"]')) {
