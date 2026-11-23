@@ -11,8 +11,8 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter+Tight:wght@400;500;600;700&amp;family=Saira:wght@600&amp;display=swap">
-<link rel="stylesheet" href="./login.css?v=2">
-<script src="./login.js?v=2" type="module"></script>
+<link rel="stylesheet" href="./login.css?v=3">
+<script src="./login.js?v=3" type="module"></script>
 </head>
 <body>
 <main>
@@ -20,6 +20,7 @@
 <div class="layout">
 <h1 aria-label="Fokus. Auf einer Seite."><span>Fokus.</span><span>Auf einer</span><span>Seite.</span></h1>
 <section class="access" aria-label="Folio Office Login">
+<h2 id="access-title" hidden>Konto einrichten</h2>
 <p class="notice" id="notice" role="status" hidden></p>
 <form id="access">
 <label id="email-label">E-Mail<input type="email" name="email" autocomplete="username" required maxlength="254"></label>
@@ -33,7 +34,16 @@
 </div>
 <p id="code-hint" class="code-hint"></p>
 </div>
-<label>Kennwort<input type="password" name="password" autocomplete="current-password" required maxlength="128"></label>
+<div class="code-field">
+<label for="access-password">Kennwort</label>
+<div class="code-input">
+<input id="access-password" type="password" name="password" autocomplete="current-password" required maxlength="128" aria-describedby="password-hint">
+<button id="toggle-password" type="button" aria-label="Kennwort anzeigen" aria-pressed="false" aria-controls="access-password" title="Kennwort anzeigen">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+</button>
+</div>
+<p id="password-hint" class="code-hint" hidden>Mindestens acht Zeichen.</p>
+</div>
 <button type="submit">Login</button>
 </form>
 <div id="recovery" hidden>

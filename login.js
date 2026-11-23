@@ -2,6 +2,8 @@ const endpoint = 'https://irroinhpcoafwxwlnnbd.supabase.co/functions/v1/folio-of
 const tokenStorage = 'folio-office-session-v1';
 const form = document.getElementById('access');
 const notice = document.getElementById('notice');
+const accessTitle = document.getElementById('access-title');
+const passwordHint = document.getElementById('password-hint');
 const emailLabel = document.getElementById('email-label');
 const codeLabel = document.getElementById('code-label');
 const codeTitle = document.getElementById('code-title');
@@ -17,16 +19,27 @@ function showNotice(message) {
   notice.textContent = message;
   notice.hidden = !message;
 }
-function setCodeVisible(visible) {
-  form.elements.code.type = visible ? 'text' : 'password';
-  toggleCode.setAttribute('aria-pressed', String(visible));
-  const label = visible ? 'Code ausblenden' : 'Code anzeigen';
-  toggleCode.setAttribute('aria-label', label);
-  toggleCode.title = label;
+function visibilityToggle(button, field, name) {
+  function setVisible(visible) {
+    field.type = visible ? 'text' : 'password';
+    button.setAttribute('aria-pressed', String(visible));
+    const label = name + (visible ? ' ausblenden' : ' anzeigen');
+    button.setAttribute('aria-label', label);
+    button.title = label;
+  }
+  button.addEventListener('click', () => setVisible(field.type === 'password'));
+  return setVisible;
 }
-toggleCode.addEventListener('click', () => setCodeVisible(form.elements.code.type === 'password'));
+const setCodeVisible = visibilityToggle(toggleCode, form.elements.code, 'Code');
+const setPasswordVisible = visibilityToggle(
+  document.getElementById('toggle-password'), form.elements.password, 'Kennwort',
+);
 function showForm() {
   const mode = modeForHash();
+  accessTitle.hidden = mode === 'login';
+  accessTitle.textContent = mode === 'setup' ? 'Konto einrichten' : 'Kennwort zurücksetzen';
+  passwordHint.hidden = mode === 'login';
+  setPasswordVisible(false);
   emailLabel.hidden = mode === 'recover';
   form.elements.email.disabled = emailLabel.hidden;
   codeLabel.hidden = mode === 'login';
