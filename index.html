@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eee6d8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' blob:; style-src 'self' blob: 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://irroinhpcoafwxwlnnbd.supabase.co; manifest-src 'self'; frame-src 'self' blob:; base-uri 'none'; form-action 'none'">
+<title>Folio Office</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter+Tight:wght@400;500;600;700&amp;family=Saira:wght@600&amp;display=swap">
+<link rel="stylesheet" href="./login.css">
+<script src="./login.js" type="module"></script>
+</head>
+<body>
+<main>
+<header aria-label="Folio Office"><span class="wordmark" aria-hidden="true"><b>Folio</b><i></i><em>office</em></span></header>
+<div class="layout">
+<h1 aria-label="Fokus. Auf einer Seite."><span>Fokus.</span><span>Auf einer</span><span>Seite.</span></h1>
+<section class="access" aria-label="Folio Office Login">
+<p class="notice" id="notice" role="status" hidden></p>
+<form id="access">
+<label id="email-label">E-Mail<input type="email" name="email" autocomplete="username" required maxlength="254"></label>
+<label id="code-label" hidden><span>Einrichtungscode</span><input type="password" name="code" autocomplete="off" maxlength="128" disabled></label>
+<label>Kennwort<input type="password" name="password" autocomplete="current-password" required maxlength="128"></label>
+<button type="submit">Login</button>
+</form>
+<div id="recovery" hidden>
+<p>Bewahre diesen einmaligen Wiederherstellungscode in deinem Passwortmanager auf. Er wird nur jetzt angezeigt.</p>
+<label>Wiederherstellungscode<input id="recovery-code" readonly autocomplete="off"></label>
+<p><button id="continue" type="button">Weiter zu Folio Office</button></p>
+</div>
+<a href="#wiederherstellen" id="switch">Kennwort vergessen?</a>
+</section>
+</div>
+</main>
+</body>
+</html>
